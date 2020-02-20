@@ -111,4 +111,28 @@ defmodule ExOkex.Swap.Private do
   def get_leverage(instrument_id, config \\ nil) do
     get("#{@prefix}/accounts/#{instrument_id}/settings", %{}, config)
   end
+
+  @doc """
+  Get the current orderbook for the specified future.
+
+  Private and public implementation so that you can bypass rate limits.
+  Need to bypass rate limits because websocket doesn't allow you to set the bucket size.
+
+  https://www.okex.com/docs/en/#swap-swap---data
+
+  ## Examples
+    iex(1)> params = %{
+      size: 200,
+      depth: 1
+    }
+    %{
+      size: 200,
+      depth: 1
+    }
+
+    iex(2)> ExOkex.Futures.order_book("BTC-USD-SWAP", params)
+  """
+  def orderbook(instrument_id, %{} = params, config \\ nil) do
+    get("#{@prefix}/#{instrument_id}/book", params, config)
+  end
 end

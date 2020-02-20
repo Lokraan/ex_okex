@@ -1,15 +1,11 @@
-defmodule ExOkex.Futures.Public do
+defmodule ExOkex.Spot.Public do
   import ExOkex.Api.Public
 
-  @prefix "/api/futures/v3"
+  @prefix "/api/spot/v3"
 
-  def instruments do
-    get("#{@prefix}/instruments", %{})
-  end
-
-  def price_limit(instrument_id) do
-    get("#{@prefix}/instruments/#{instrument_id}/price_limit")
-  end
+  @moduledoc """
+  Spot account client.
+  """
 
   @doc """
   Get the current orderbook for the specified future.
@@ -17,7 +13,7 @@ defmodule ExOkex.Futures.Public do
   Private and public implementation so that you can bypass rate limits.
   Need to bypass rate limits because websocket doesn't allow you to set the bucket size.
 
-  https://www.okex.com/docs/en/#futures-data
+  https://www.okex.com/docs/en/#spot-data
 
   ## Examples
     iex(1)> params = %{
@@ -29,7 +25,7 @@ defmodule ExOkex.Futures.Public do
       depth: 1
     }
 
-    iex(2)> ExOkex.Futures.order_book("BTC-USD-180213", params)
+    iex(2)> ExOkex.Futures.order_book("BTC-USD", params)
   """
   def orderbook(instrument_id, %{} = params) do
     get("#{@prefix}/#{instrument_id}/book", params)
