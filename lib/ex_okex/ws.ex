@@ -94,6 +94,13 @@ defmodule ExOkex.Ws do
         end
       end
 
+      def handle_frame({:binary, compressed_data}, %{"channel" => channel, "event" => "subscribe"} = state) do
+        compressed_data
+        |> :zlib.unzip()
+        |> Jason.decode!()
+        |> handle_response(state)
+      end
+
       def handle_response(resp, state) do
         :ok = info("#{__MODULE__} received response: #{inspect(resp)}")
         {:ok, state}

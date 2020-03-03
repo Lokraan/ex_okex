@@ -32,6 +32,6 @@ defmodule ExOkex.Swap.Public do
     iex(2)> ExOkex.Futures.order_book("BTC-USD-SWAP", params)
   """
   def orderbook(instrument_id, %{} = params) do
-    get("#{@prefix}/#{instrument_id}/book", params)
+    get("#{@prefix}/instruments/#{instrument_id}/book", params)
   end
 end

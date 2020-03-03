@@ -35,26 +35,14 @@ defmodule ExOkex.Config do
 
   def config_or_env_config(config), do: config
 
-  def api_key, do: from_env(:ex_okex, :api_key)
+  def api_key(access_key \\ :api_key), do: from_env(:ex_okex, access_key)
 
-  @spec api_key(atom) :: String.t()
-  def api_key(access_key), do: from_env(access_key, :system)
-
-  def api_secret, do: from_env(:ex_okex, :api_secret)
-
-  @spec api_secret(atom) :: String.t()
-  def api_secret(access_key), do: from_env(access_key, :system)
-
-  def api_passphrase, do: from_env(:ex_okex, :api_passphrase)
+  def api_secret(access_key \\ :api_secret), do: from_env(:ex_okex, access_key)
 
   @spec api_passphrase(atom) :: String.t()
-  def api_passphrase(access_key), do: from_env(access_key, :system)
+  def api_passphrase(access_key \\ :api_passphrase), do: from_env(:ex_okex, access_key)
 
   def api_url, do: from_env(:ex_okex, :api_url, @default_api_url)
-
-  defp from_env(key, :system) do
-    System.get_env(key)
-  end
 
   defp from_env(otp_app, key, default \\ nil)
 

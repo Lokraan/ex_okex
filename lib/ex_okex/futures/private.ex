@@ -152,6 +152,6 @@ defmodule ExOkex.Futures.Private do
     iex(2)> ExOkex.Futures.order_book("BTC-USD-180213", params)
   """
   def orderbook(instrument_id, %{} = params, config \\ nil) do
-    get("#{@prefix}/#{instrument_id}/book", params, config)
+    get("#{@prefix}/instruments/#{instrument_id}/book", params, config)
   end
 end
